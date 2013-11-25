@@ -28,7 +28,9 @@ public class GraffitiBlock extends BlockContainer
     {
         super(i, Block.planks.blockMaterial);
         this.renderType = renderType;
-        setHardness(0.8F);
+
+        setStepSound(soundClothFootstep);
+        setHardness(0.3F);
     }
 
     @Override
@@ -88,12 +90,7 @@ public class GraffitiBlock extends BlockContainer
         		return;
     		}
     	}
-    }
-
-    @Override
-    public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
-    {
-        this.setBlockBoundsForItemRender();
+    	setBlockBoundsBasedOnSide(0);
     }
 
     private void setBlockBoundsBasedOnSide(int side)
