@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -139,7 +140,7 @@ public class GraffitiBlock extends BlockContainer
     public boolean onBlockActivated(World par1World, int par2, int par3,int par4, EntityPlayer par5EntityPlayer, int par6, float par7,float par8, float par9)
     {
 	    ItemStack itemstack = par5EntityPlayer.getCurrentEquippedItem();
-	    if(itemstack == null)
+	    if(itemstack != null && itemstack.itemID == Item.paper.itemID)
 	    {
 	        if(!par1World.isRemote)
 	        {
@@ -151,6 +152,31 @@ public class GraffitiBlock extends BlockContainer
 		    	}
 	    	}
 	        return true;
+    	}
+	    else if(itemstack == null || itemstack.itemID != mod_Graffiti.graffitiItem.itemID)
+	    {
+	    	int checkPosX = par2;
+	    	int checkPosY = par3;
+	    	int checkPosZ = par4;
+
+	        if (par6 == 0){
+	        	//下から叩いた場合
+	        	++checkPosY;
+	        }else if(par6 == 1){
+	        	//上から叩いた場合
+	        	--checkPosY;
+	        }else if(par6 == 2){
+	            ++checkPosZ;
+	        }else if(par6 == 3){
+	        	--checkPosZ;
+	        }else if(par6 == 4){
+	            ++checkPosX;
+	        }else if(par6 == 5){
+	        	--checkPosX;
+	        }
+	        int blockID = par1World.getBlockId(checkPosX, checkPosY, checkPosZ);
+		    Block block = Block.blocksList[blockID];
+	        return block.onBlockActivated(par1World, checkPosX, checkPosY,checkPosZ, par5EntityPlayer, par6, par7,par8, par9);
     	}
     	return super.onBlockActivated(par1World, par2, par3, par4, par5EntityPlayer,par6, par7, par8, par9);
     }

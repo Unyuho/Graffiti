@@ -35,7 +35,7 @@ public class mod_Graffiti
 	public static CommonProxy proxy;
 
 	public static int blockId = 2180;
-	public static int itemId = 2181;
+	public static int itemId = 30821;
 	public int posionX = 0;
 	public int posionY = 0;
 	public int color = 0xFFFFFF;

@@ -38,7 +38,6 @@ public class ItemGraffiti extends Item
 		setMaxDamage(0);
 		setHasSubtypes(true);
 
-
 		graffitiBlockID = blockID;
 		graffitiBlock = (ItemBlock)Item.itemsList[blockID];
 
@@ -167,6 +166,14 @@ public class ItemGraffiti extends Item
     	int blockID = par3World.getBlockId(posX, posY, posZ);
     	if(blockID != graffitiBlockID)
     	{
+    		Block block = Block.blocksList[blockID];
+    		if(!isEnable(block , side))
+    		{
+    			//特殊形状はめんどいので対象外
+    			//そのうちチェストとかは考える
+    			return false;
+    		}
+
     		blockID = par3World.getBlockId(checkPosX, checkPosY, checkPosZ);
         	if(blockID != graffitiBlockID)
         	{
@@ -208,6 +215,35 @@ public class ItemGraffiti extends Item
     	return stackTagCompound;
     }
 
+    public boolean isState(ItemStack itemstack)
+    {
+    	return getSide(itemstack) != -1;
+    }
+
+    public int getSide(ItemStack itemstack)
+    {
+    	NBTTagCompound stackTagCompound = getNBT(itemstack);
+    	return stackTagCompound.getInteger("side");
+    }
+
+    public float getXCoord(ItemStack itemstack)
+    {
+    	NBTTagCompound stackTagCompound = getNBT(itemstack);
+    	return stackTagCompound.getFloat("xCoord");
+    }
+
+    public float getYCoord(ItemStack itemstack)
+    {
+    	NBTTagCompound stackTagCompound = getNBT(itemstack);
+    	return stackTagCompound.getFloat("yCoord");
+    }
+
+    public float getZCoord(ItemStack itemstack)
+    {
+    	NBTTagCompound stackTagCompound = getNBT(itemstack);
+    	return stackTagCompound.getFloat("zCoord");
+    }
+
     public void setLineSize(ItemStack itemstack, int size)
     {
     	NBTTagCompound stackTagCompound = getNBT(itemstack);
@@ -227,6 +263,11 @@ public class ItemGraffiti extends Item
     {
     	NBTTagCompound stackTagCompound = getNBT(itemstack);
     	return stackTagCompound.getInteger("lineSize");
+    }
+
+    public boolean isEnable(Block block, int side)
+    {
+    	return block.isOpaqueCube() || (block.blockID == Block.glass.blockID);
     }
 
     @SideOnly(Side.CLIENT)
