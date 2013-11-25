@@ -25,6 +25,7 @@ public class ShapelessGraffitiRecipesReverse implements IRecipe
 	@Override
 	public boolean matches(InventoryCrafting inventorycrafting, World world)
 	{
+		int lineSize = 0;
 		int size = 0;
 		for(int i = 0; i < 3; ++i)
 		{
@@ -35,6 +36,7 @@ public class ShapelessGraffitiRecipesReverse implements IRecipe
 				{
 					if (itemstack.itemID == recipeOutput.itemID)
 					{
+						lineSize += mod_Graffiti.graffitiItem.getLineSize(itemstack);
 						size++;
 					}
 					else
@@ -45,7 +47,7 @@ public class ShapelessGraffitiRecipesReverse implements IRecipe
             }
         }
 
-        return (size == 1);
+        return (size == 1) && (lineSize > 1);
 	}
 
 	@Override
