@@ -1,4 +1,4 @@
-package net.minecraft.graffiti;
+﻿package net.minecraft.graffiti;
 
 import java.util.List;
 import java.util.Random;
@@ -28,7 +28,6 @@ public class GraffitiBlock extends BlockContainer
     {
         super(i, Block.planks.blockMaterial);
         this.renderType = renderType;
-
         setStepSound(soundClothFootstep);
         setHardness(0.3F);
     }
