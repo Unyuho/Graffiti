@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.src.ModLoader;
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.Property;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.Mod;
@@ -27,7 +28,7 @@ import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "Graffiti", name = "Graffiti Block", version = "1.0.0")
+@Mod(modid = "Graffiti", name = "Graffiti Block", version = "1.1.0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = {"graffiti"}, packetHandler = PacketHandler.class)
 public class mod_Graffiti
 {
@@ -39,8 +40,10 @@ public class mod_Graffiti
 	public int posionX = 0;
 	public int posionY = 0;
 	public int color = 0xFFFFFF;
+	public int maxLength = 15;
 
 	public static GraffitiBlock graffitiBlock = null;
+	public static ItemBlockGraffiti graffitBlockiItem = null;
 	public static ItemGraffiti graffitiItem = null;
 
 	private static float width = 0.0125F;
@@ -60,6 +63,7 @@ public class mod_Graffiti
 			posionX = cfg.get("displayinfo", "PosionX", posionX).getInt();
 			posionY = cfg.get("displayinfo", "PosionY", posionY).getInt();
 			color = cfg.get("displayinfo", "Color", color).getInt();
+			maxLength = cfg.get("maxLength", "maxLength", maxLength).getInt();
 		}
 		catch (Exception e)
 		{
@@ -72,9 +76,9 @@ public class mod_Graffiti
 
 		int renderType = proxy.getBlockNewRenderType();
 		graffitiBlock = new GraffitiBlock(blockId, renderType);
-		GameRegistry.registerBlock(graffitiBlock, "graffitiBlock");
+		GameRegistry.registerBlock(graffitiBlock, ItemBlockGraffiti.class , "graffitiBlock");
 
-		graffitiItem = new ItemGraffiti(itemId, blockId, posionX, posionY, color);
+		graffitiItem = new ItemGraffiti(itemId, blockId, posionX, posionY, color, maxLength);
 		GameRegistry.registerItem(graffitiItem, "graffitiItem");
 	}
 

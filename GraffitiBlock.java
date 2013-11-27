@@ -1,8 +1,7 @@
-﻿package net.minecraft.graffiti;
+package net.minecraft.graffiti;
 
 import java.util.List;
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.creativetab.CreativeTabs;
@@ -69,13 +68,6 @@ public class GraffitiBlock extends BlockContainer
     }
 
     @Override
-    public void onBlockPlacedBy(World par1World, int par2, int par3, int par4,EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
-    {
-    	super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLivingBase,par6ItemStack);
-
-    }
-
-    @Override
     public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
     	TileEntityGraffitiBlock tileentity = (TileEntityGraffitiBlock)par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
@@ -121,6 +113,17 @@ public class GraffitiBlock extends BlockContainer
     }
 
     @Override
+    public void addCollisionBoxesToList(World par1World, int par2, int par3,int par4, AxisAlignedBB par5AxisAlignedBB, List par6List,Entity par7Entity)
+    {
+    	TileEntityGraffitiBlock tileentity = (TileEntityGraffitiBlock)par1World.getBlockTileEntity(par2, par3, par4);
+
+    	if(tileentity.getCollision())
+    	{
+    		super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB,par6List, par7Entity);
+    	}
+    }
+
+    @Override
     public void setBlockBoundsForItemRender()
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -149,6 +152,16 @@ public class GraffitiBlock extends BlockContainer
 	    	}
 	        return true;
     	}
+	    else if(itemstack != null && itemstack.itemID == Item.stick.itemID)
+	    {
+	        if(!par1World.isRemote)
+	        {
+		    	TileEntityGraffitiBlock tileentity = (TileEntityGraffitiBlock)par1World.getBlockTileEntity(par2, par3, par4);
+		    	tileentity.changeCollision();
+		    	par1World.markBlockForUpdate(par2, par3, par4);
+	    	}
+	        return true;
+    	}
 	    else if(itemstack == null || itemstack.itemID != mod_Graffiti.graffitiItem.itemID)
 	    {
 	    	int checkPosX = par2;
@@ -172,7 +185,9 @@ public class GraffitiBlock extends BlockContainer
 	        }
 	        int blockID = par1World.getBlockId(checkPosX, checkPosY, checkPosZ);
 		    Block block = Block.blocksList[blockID];
-	        return block.onBlockActivated(par1World, checkPosX, checkPosY,checkPosZ, par5EntityPlayer, par6, par7,par8, par9);
+		    if(block != null){
+		    	return block.onBlockActivated(par1World, checkPosX, checkPosY,checkPosZ, par5EntityPlayer, par6, par7,par8, par9);
+		    }
     	}
     	return super.onBlockActivated(par1World, par2, par3, par4, par5EntityPlayer,par6, par7, par8, par9);
     }

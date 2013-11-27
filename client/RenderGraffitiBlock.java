@@ -49,32 +49,32 @@ public class RenderGraffitiBlock extends RenderBlocks
         		int renderSide = point.getSide();
         		if(renderSide == 0)
         		{
-                    tessellator.setBrightness(this.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX, posY - 1, oosZ));
+                    //tessellator.setBrightness(this.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX, posY - 1, oosZ));
         			renderLineFaceYPos(block, posX, posY, oosZ, icon , points[cnt], cnt);
         		}
         		else if(renderSide == 1)
         		{
-                    tessellator.setBrightness(this.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX, posY + 1, oosZ));
+                    //tessellator.setBrightness(this.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX, posY + 1, oosZ));
         			renderLineFaceYNeg(block, posX, posY, oosZ, icon , points[cnt], cnt);
         		}
         		else if(renderSide == 2)
         		{
-                    tessellator.setBrightness(this.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX, posY, oosZ - 1));
+                    //tessellator.setBrightness(this.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX, posY, oosZ - 1));
         			renderLineFaceZPos(block, posX, posY, oosZ, icon , points[cnt], cnt);
         		}
         		else if(renderSide == 3)
         		{
-                    tessellator.setBrightness(this.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX - 1, posY, oosZ));
+                    //tessellator.setBrightness(this.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX - 1, posY, oosZ));
         			renderLineFaceZNeg(block, posX, posY, oosZ, icon , points[cnt], cnt);
         		}
         		else if(renderSide == 4)
         		{
-                    tessellator.setBrightness(this.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX - 1, posY, oosZ));
+                    //tessellator.setBrightness(this.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX - 1, posY, oosZ));
         			renderLineFaceXPos(block, posX, posY, oosZ, icon , points[cnt], cnt);
         		}
         		else if(renderSide == 5)
         		{
-                    tessellator.setBrightness(this.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX + 1, posY, oosZ));
+                    //tessellator.setBrightness(this.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(this.blockAccess, posX + 1, posY, oosZ));
         			renderLineFaceXNeg(block, posX, posY, oosZ, icon , points[cnt], cnt);
         		}
 
@@ -251,6 +251,11 @@ public class RenderGraffitiBlock extends RenderBlocks
         tessellator.addVertexWithUV(minX, minY, minZ, minU, maxV);
         tessellator.addVertexWithUV(maxX, minY, minZ, maxU, maxV);
         tessellator.addVertexWithUV(maxX, minY, maxZ, maxU, minV);
+
+        tessellator.addVertexWithUV(maxX, minY, maxZ, maxU, minV);
+        tessellator.addVertexWithUV(maxX, minY, minZ, maxU, maxV);
+        tessellator.addVertexWithUV(minX, minY, minZ, minU, maxV);
+        tessellator.addVertexWithUV(minX, minY, maxZ, minU, minV);
     }
 
 
@@ -300,6 +305,11 @@ public class RenderGraffitiBlock extends RenderBlocks
         tessellator.addVertexWithUV(minX, maxY, minZ, maxU, maxV);
         tessellator.addVertexWithUV(minX, minY, minZ, maxU, minV);
         tessellator.addVertexWithUV(minX, minY, maxZ, minU, minV);
+
+        tessellator.addVertexWithUV(minX, minY, maxZ, minU, minV);
+        tessellator.addVertexWithUV(minX, maxY, maxZ, minU, maxV);
+        tessellator.addVertexWithUV(minX, maxY, minZ, maxU, maxV);
+        tessellator.addVertexWithUV(minX, minY, minZ, maxU, minV);
     }
 
     public void renderLineFaceXPos(Block par1Block, double par2, double par4, double par6, Icon icon , LinePoint point, int cnt)
@@ -349,6 +359,10 @@ public class RenderGraffitiBlock extends RenderBlocks
         tessellator.addVertexWithUV(minX, minY, minZ, maxU, minV);
         tessellator.addVertexWithUV(minX, minY, maxZ, minU, minV);
 
+        tessellator.addVertexWithUV(minX, minY, maxZ, minU, minV);
+        tessellator.addVertexWithUV(minX, maxY, maxZ, minU, maxV);
+        tessellator.addVertexWithUV(minX, maxY, minZ, maxU, maxV);
+        tessellator.addVertexWithUV(minX, minY, minZ, maxU, minV);
     }
 
 

@@ -187,6 +187,64 @@ public class LinePoint
     	size = data.readInt();
     }
 
+    public void setEndPosX(float posXend)
+    {
+       	if(posXstart == posXend)
+       	{
+           	if(posXstart == lineWidth)
+           	{
+           		posXstart = 0.0F;
+           		posXend = 0.0F;
+        	}
+           	else if(posXstart == (cubeSize - lineWidth) )
+           	{
+           		posXstart = cubeSize;
+           		posXend = cubeSize;
+        	}
+    	}
+
+        this.posXend = posXend;
+    }
+
+    public void setEndPosY(float posYend)
+    {
+       	if(posYstart == posYend)
+       	{
+           	if(posYstart == lineWidth)
+           	{
+           		posYstart = 0.0F;
+           		posYend = 0.0F;
+        	}
+           	else if(posXstart == (cubeSize - lineWidth) )
+           	{
+           		posYstart = cubeSize;
+           		posYend = cubeSize;
+        	}
+    	}
+
+        this.posYend = posYend;
+    }
+
+    public void setEndPosZ(float posZend)
+    {
+       	if(posZstart == posZend)
+       	{
+           	if(posZstart == lineWidth)
+           	{
+           		posZstart = 0.0F;
+           		posZend = 0.0F;
+        	}
+           	else if(posZstart == (cubeSize - lineWidth) )
+           	{
+           		posZstart = cubeSize;
+           		posZend = cubeSize;
+        	}
+    	}
+
+        this.posZend = posZend;
+    }
+
+
     public float getAngleY()
     {
     	return (float)(Math.atan2(posXend - posXstart,posZend - posZstart) * 180.0D / Math.PI) - 90.0F;

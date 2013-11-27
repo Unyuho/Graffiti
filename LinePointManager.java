@@ -21,6 +21,11 @@ public class LinePointManager
     	this.linePoint = new ArrayList<LinePoint>();
     }
 
+    public void addPoint(LinePoint point)
+    {
+    	this.linePoint.add(point);
+    }
+
     public void addPoint(float posXstart, float posYstart, float posZstart, float posXend, float posYend, float posZend,int side,int color, int size)
     {
     	LinePoint point = new LinePoint(posXstart,posYstart,posZstart,posXend,posYend,posZend,side,color,size);
